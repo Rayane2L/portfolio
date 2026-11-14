@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; base-uri 'none'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Rayane LALI · étudiant en cybersécurité @ Epitech Nice</title>
+<meta name="description" content="Étudiant en cybersécurité en 2e année de Bachelor à Epitech Nice. Recherche : stage, puis alternance en cybersécurité, autour de Nice (ou remote).">
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/jetbrains-mono-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/boot.js"></script>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/favicon.svg" width="26" height="26" alt=""><span>rayane<span class="at">@</span>epitech-nice</span></a>
+    <nav class="nav" aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html" aria-current="page">accueil</a></li>
+        <li><a href="projets.html">projets</a></li>
+        <li><a href="parcours.html">parcours</a></li>
+        <li><a href="contact.html">contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="sr-only">Rayane LALI, étudiant en cybersécurité à Epitech Nice</h1>
+
+  <section class="hero" aria-label="Terminal">
+    <img class="snake" src="assets/snake.svg" width="670" height="380" alt="">
+
+    <div>
+      <div class="term" id="term">
+        <div class="term-bar" aria-hidden="true">
+          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+          <span class="term-title">rayane@epitech-nice: ~</span>
+        </div>
+        <div class="term-body" id="term-body">
+          <div id="term-out" role="log" aria-live="polite">
+            <div class="ln"><span class="ps1">$</span> <span class="cmd">whoami</span></div>
+            <div class="out"><span class="who-name">Rayane LALI</span> <span class="who-role">étudiant en cybersécurité @ Epitech Nice</span></div>
+            <div class="ln"><span class="ps1">$</span> <span class="cmd">cat focus.txt</span></div>
+            <div class="out"><span class="t-blue">pentest · CTF · détection &amp; réponse · sécurité réseau</span></div>
+            <div class="ln"><span class="ps1">$</span> <span class="cmd">./recherche --stage --alternance --zone="autour de Nice"</span></div>
+            <div class="out">Stage, puis alternance en cybersécurité, autour de Nice (ou remote)</div>
+            <div class="ln" id="static-prompt"><span class="ps1">$</span> <span class="cursor"></span></div>
+          </div>
+          <form class="term-prompt" id="term-form" autocomplete="off" hidden>
+            <label class="sr-only" for="term-input">Commande (tape help pour la liste)</label>
+            <span class="ps1" aria-hidden="true">$</span><span class="typed" id="term-typed" aria-hidden="true"></span><span class="cursor" aria-hidden="true"></span>
+            <input id="term-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go">
+          </form>
+        </div>
+      </div>
+      <div class="quick" id="quick" hidden>
+        <span class="quick-label">commandes :</span>
+        <button type="button" data-cmd="help">help</button>
+        <button type="button" data-cmd="cat about_me">cat about_me</button>
+        <button type="button" data-cmd="ls projets">ls projets</button>
+        <button type="button" data-cmd="cat parcours">cat parcours</button>
+        <button type="button" data-cmd="cat contact">cat contact</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="block reveal">
+    <h2 class="cmd-title"><span aria-hidden="true">&gt; about_me</span><span class="sr-only">Présentation</span></h2>
+    <p class="lead">Étudiant en cybersécurité en 2e année de Bachelor à Epitech Nice. Ce qui me motive : comprendre comment les systèmes fonctionnent pour savoir comment les attaquer, et donc comment les protéger. Je m'entraîne sur HackTheBox et lors des CTF d'Epitech, et je documente ma méthodologie et mes write-ups sur GitHub.</p>
+  </section>
+
+  <section class="block reveal">
+    <h2 class="cmd-title"><span aria-hidden="true">&gt; ls ~</span><span class="sr-only">Pages du site</span></h2>
+    <ul class="dirs">
+      <li><a href="projets.html"><span class="dir-name">projets/</span><span class="dir-desc">Cybersécurité, dev (Epitech), perso et stages</span></a></li>
+      <li><a href="parcours.html"><span class="dir-name">parcours/</span><span class="dir-desc">Formation, expériences, compétences, langues</span></a></li>
+      <li><a href="contact.html"><span class="dir-name">contact/</span><span class="dir-desc">GitHub, LinkedIn, e-mail</span></a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wave" aria-hidden="true"></div>
+  <div class="wrap foot-in">
+    <p>Rayane LALI · Epitech Nice</p>
+    <ul>
+      <li><a href="https://github.com/Rayane2L" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/rayane-lali" rel="noopener noreferrer">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+<script src="js/terminal.js" defer></script>
+</body>
+</html>
