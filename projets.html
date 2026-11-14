@@ -2,173 +2,179 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; base-uri 'none'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Projets · Rayane LALI</title>
+<title>Projets | Rayane LALI</title>
 <meta name="description" content="Projets de Rayane LALI : cybersécurité (SentinelX, CTF Exegol, OWASP Juice Shop, Codename, HackTheBox), dev Epitech, perso et stages.">
 <meta name="theme-color" content="#0d1117">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/jetbrains-mono-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
-<script src="js/boot.js"></script>
 </head>
 <body>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
 <header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="index.html"><img src="assets/favicon.svg" width="26" height="26" alt=""><span>rayane<span class="at">@</span>epitech-nice</span></a>
-    <nav class="nav" aria-label="Navigation principale">
-      <ul>
-        <li><a href="index.html">accueil</a></li>
-        <li><a href="projets.html" aria-current="page">projets</a></li>
-        <li><a href="parcours.html">parcours</a></li>
-        <li><a href="contact.html">contact</a></li>
-      </ul>
-    </nav>
-  </div>
+  <a class="brand" href="index.html" translate="no"><span class="brand-mark"><img src="assets/favicon.svg" width="28" height="28" alt=""></span><span>rayane<span class="at">@</span>epitech-nice</span></a>
+  <nav class="nav" aria-label="Navigation principale">
+    <ul>
+      <li><a href="index.html">accueil</a></li>
+      <li><a href="projets.html" aria-current="page">projets</a></li>
+      <li><a href="parcours.html">parcours</a></li>
+      <li><a href="contact.html">contact</a></li>
+    </ul>
+  </nav>
 </header>
 
-<main class="wrap">
-  <h1 class="page-title"><span class="ps1" aria-hidden="true">$</span><span aria-hidden="true"> ls ./projets</span><span class="sr-only">Projets</span><span class="cursor" aria-hidden="true"></span></h1>
+<main class="layout" id="contenu">
+  <div class="rail" id="rail" aria-hidden="true"></div>
 
-  <section class="block">
-    <h2 class="cmd-title"><span aria-hidden="true">&gt; ls ./cyber</span><span class="comment"><span aria-hidden="true"># </span>Cybersécurité</span></h2>
-    <ol>
-      <li class="proj reveal">
-        <span class="proj-num" aria-hidden="true">01</span>
-        <div>
-          <div class="proj-head">
-            <h3>SentinelX</h3>
-            <span class="proj-ctx">Epitech, binôme</span>
-            <span class="proj-link">privé · détails en entretien</span>
-          </div>
-          <p class="proj-desc">Volet cyber et détection d'une app de tickets : déploiement de Wazuh, règles de détection, plans d'attaque (bruteforce, SQLi, traversal, IDOR, SSRF, chaîné), runbooks, qualification d'alertes.</p>
-          <p class="stack"><span class="k">stack</span>Wazuh · Docker · Prometheus · Grafana</p>
-        </div>
-      </li>
-      <li class="proj reveal">
-        <span class="proj-num" aria-hidden="true">02</span>
-        <div>
-          <div class="proj-head">
-            <h3>CTF Exegol</h3>
-            <span class="proj-ctx">Epitech</span>
-            <a class="proj-link" href="https://github.com/Rayane2L/exegol-ctf-writeups" rel="noopener noreferrer">github.com/Rayane2L/exegol-ctf-writeups</a>
-          </div>
-          <p class="proj-desc">12 machines Boot2Root : reconnaissance, exploitation, élévation de privilèges, un write-up par machine.</p>
-          <p class="stack"><span class="k">stack</span>Exegol · Nmap · Gobuster · curl · netcat · John · Python</p>
-        </div>
-      </li>
-      <li class="proj reveal">
-        <span class="proj-num" aria-hidden="true">03</span>
-        <div>
-          <div class="proj-head">
-            <h3>OWASP Juice Shop</h3>
-            <span class="proj-ctx">Epitech</span>
-            <a class="proj-link" href="https://github.com/Rayane2L/owasp-juice-shop-writeups" rel="noopener noreferrer">github.com/Rayane2L/owasp-juice-shop-writeups</a>
-          </div>
-          <p class="proj-desc">45 challenges (Broken Access Control, Injection, XSS, XXE, JWT…) avec méthodologie, risques et remédiation.</p>
-          <p class="stack"><span class="k">stack</span>Burp Suite</p>
-        </div>
-      </li>
-      <li class="proj reveal">
-        <span class="proj-num" aria-hidden="true">04</span>
-        <div>
-          <div class="proj-head">
-            <h3>Codename</h3>
-            <span class="proj-ctx">Epitech</span>
-            <span class="proj-link">privé · détails en entretien</span>
-          </div>
-          <p class="proj-desc">Durcissement d'un agent LLM et boîte à outils de prompt injection.</p>
-          <p class="stack"><span class="k">stack</span>Ollama · Python</p>
-        </div>
-      </li>
-      <li class="proj reveal">
-        <span class="proj-num" aria-hidden="true">05</span>
-        <div>
-          <div class="proj-head">
-            <h3>HackTheBox</h3>
-            <a class="proj-link" href="https://github.com/Rayane2L/hackthebox" rel="noopener noreferrer">github.com/Rayane2L/hackthebox</a>
-          </div>
-          <p class="proj-desc">Write-ups de machines retired.</p>
-        </div>
-      </li>
-    </ol>
-  </section>
+  <div class="content">
+    <h1 class="page-title" data-node="mid"><span class="ps1" aria-hidden="true">$ </span><span aria-hidden="true">ls ./</span>projets<span class="cursor" aria-hidden="true"></span></h1>
 
-  <section class="block">
-    <h2 class="cmd-title"><span aria-hidden="true">&gt; ls ./epitech</span><span class="comment"><span aria-hidden="true"># </span>Dev (Epitech)</span></h2>
-    <ul class="rows">
-      <li class="row reveal">
-        <h3>Jobryx</h3>
-        <p>Moteur de recherche d'emploi tech. Rôle : backend et sécurité (JWT, RBAC, BDD).</p>
-        <p class="stack">TypeScript · Node.js · Docker</p>
-      </li>
-      <li class="row reveal">
-        <h3>Persona</h3>
-        <p>Newsletter personnalisée pilotée par un chatbot.</p>
-        <p class="stack">n8n · IA générative</p>
-      </li>
-      <li class="row reveal">
-        <h3>TARDIS</h3>
-        <p>Analyse et prédiction des retards SNCF (Random Forest) avec dashboard.</p>
-        <p class="stack">Python · pandas · scikit-learn</p>
-      </li>
-      <li class="row reveal">
-        <h3>Mog Games</h3>
-        <p>Launcher et jeux 2D en Java orienté objet.</p>
-        <p class="stack">Java</p>
-      </li>
-      <li class="row reveal">
-        <h3>eTodo</h3>
-        <p>Application fullstack de gestion de tâches.</p>
-        <p class="stack">Node.js · Express · MySQL · Docker</p>
-      </li>
-      <li class="row reveal">
-        <h3>ELIZA</h3>
-        <p>Bot Discord coach fitness avec LLM local.</p>
-        <p class="stack">Python · Ollama</p>
-      </li>
-      <li class="row reveal">
-        <h3>Bookworm</h3>
-        <p>Moteur NLP : livres vers fiches pour éditeurs.</p>
-        <p class="stack">Python</p>
-      </li>
-    </ul>
-    <p class="note">Les repos Epitech sont privés : détails en entretien.</p>
-  </section>
+    <section class="sec" data-node>
+      <h2 class="sec-title"><span class="cmd" aria-hidden="true">&gt; ls ./cyber</span><span class="label">Cybersécurité</span></h2>
+      <div>
+        <div class="rows-head" aria-hidden="true"><span>projet</span><span>ce qui a été fait</span><span>code</span></div>
+        <ul class="rows">
+          <li class="row">
+            <div>
+              <h3 translate="no">SentinelX</h3>
+              <p class="ctx">Epitech, binôme</p>
+            </div>
+            <div>
+              <p class="row-desc">Volet cyber et détection d’une app de tickets&nbsp;: déploiement de Wazuh, règles de détection, plans d’attaque (bruteforce, SQLi, traversal, IDOR, SSRF, chaîné), runbooks, qualification d’alertes.</p>
+              <p class="stack" translate="no">Wazuh, Docker, Prometheus, Grafana</p>
+            </div>
+            <p class="row-side">privé, détails en entretien</p>
+          </li>
+          <li class="row">
+            <div>
+              <h3 translate="no">CTF Exegol</h3>
+              <p class="ctx">Epitech</p>
+            </div>
+            <div>
+              <p class="row-desc">12 machines Boot2Root&nbsp;: reconnaissance, exploitation, élévation de privilèges, un write-up par machine.</p>
+              <p class="stack" translate="no">Exegol, Nmap, Gobuster, curl, netcat, John, Python</p>
+            </div>
+            <p class="row-side"><a href="https://github.com/Rayane2L/exegol-ctf-writeups" rel="noopener noreferrer" translate="no">Rayane2L/exegol-ctf-writeups</a></p>
+          </li>
+          <li class="row">
+            <div>
+              <h3 translate="no">OWASP Juice Shop</h3>
+              <p class="ctx">Epitech</p>
+            </div>
+            <div>
+              <p class="row-desc">45 challenges (Broken Access Control, Injection, XSS, XXE, JWT…) avec méthodologie, risques et remédiation.</p>
+              <p class="stack" translate="no">Burp Suite</p>
+            </div>
+            <p class="row-side"><a href="https://github.com/Rayane2L/owasp-juice-shop-writeups" rel="noopener noreferrer" translate="no">Rayane2L/owasp-juice-shop-writeups</a></p>
+          </li>
+          <li class="row">
+            <div>
+              <h3 translate="no">Codename</h3>
+              <p class="ctx">Epitech</p>
+            </div>
+            <div>
+              <p class="row-desc">Durcissement d’un agent LLM et boîte à outils de prompt injection.</p>
+              <p class="stack" translate="no">Ollama, Python</p>
+            </div>
+            <p class="row-side">privé, détails en entretien</p>
+          </li>
+          <li class="row">
+            <div>
+              <h3 translate="no">HackTheBox</h3>
+            </div>
+            <div>
+              <p class="row-desc">Write-ups de machines retired.</p>
+            </div>
+            <p class="row-side"><a href="https://github.com/Rayane2L/hackthebox" rel="noopener noreferrer" translate="no">Rayane2L/hackthebox</a></p>
+          </li>
+        </ul>
+      </div>
+    </section>
 
-  <section class="block">
-    <h2 class="cmd-title"><span aria-hidden="true">&gt; ls ./perso</span><span class="comment"><span aria-hidden="true"># </span>Perso et stages</span></h2>
-    <ul class="rows">
-      <li class="row reveal">
-        <h3>Instagram Followback Checker</h3>
-        <p>Extension navigateur 100 % locale, privacy by design, licence MIT.</p>
-        <a class="proj-link" href="https://github.com/Rayane2L/instagram-followback-checker" rel="noopener noreferrer">github.com/Rayane2L/instagram-followback-checker</a>
-      </li>
-      <li class="row reveal">
-        <h3>Séances Team Nitro</h3>
-        <p>Apps Script : séances d'athlé personnalisées envoyées sur WhatsApp.</p>
-        <span class="proj-link">privé</span>
-      </li>
-      <li class="row reveal">
-        <h3>Tracker Air France</h3>
-        <p>Suivi en temps réel des avions Air France.</p>
-        <span class="proj-link">stage 2026</span>
-      </li>
-      <li class="row reveal">
-        <h3>Chatbot IA</h3>
-        <p>Chatbot personnalisé basé sur l'API OpenAI.</p>
-        <span class="proj-link">stage Air France 2023</span>
-      </li>
-    </ul>
-  </section>
+    <section class="sec" data-node>
+      <h2 class="sec-title"><span class="cmd" aria-hidden="true">&gt; ls ./epitech</span><span class="label">Dev (Epitech)</span></h2>
+      <div>
+        <div class="rows-head" aria-hidden="true"><span>projet</span><span>description</span><span>stack</span></div>
+        <ul class="rows">
+          <li class="row">
+            <h3 translate="no">Jobryx</h3>
+            <p class="row-desc">Moteur de recherche d’emploi tech. Rôle&nbsp;: backend et sécurité (JWT, RBAC, BDD).</p>
+            <p class="stack" translate="no">TypeScript, Node.js, Docker</p>
+          </li>
+          <li class="row">
+            <h3 translate="no">Persona</h3>
+            <p class="row-desc">Newsletter personnalisée pilotée par un chatbot.</p>
+            <p class="stack">n8n, IA générative</p>
+          </li>
+          <li class="row">
+            <h3 translate="no">TARDIS</h3>
+            <p class="row-desc">Analyse et prédiction des retards SNCF (Random Forest) avec dashboard.</p>
+            <p class="stack" translate="no">Python, pandas, scikit-learn</p>
+          </li>
+          <li class="row">
+            <h3 translate="no">Mog Games</h3>
+            <p class="row-desc">Launcher et jeux 2D en Java orienté objet.</p>
+            <p class="stack" translate="no">Java</p>
+          </li>
+          <li class="row">
+            <h3 translate="no">eTodo</h3>
+            <p class="row-desc">Application fullstack de gestion de tâches.</p>
+            <p class="stack" translate="no">Node.js, Express, MySQL, Docker</p>
+          </li>
+          <li class="row">
+            <h3 translate="no">ELIZA</h3>
+            <p class="row-desc">Bot Discord coach fitness avec LLM local.</p>
+            <p class="stack" translate="no">Python, Ollama</p>
+          </li>
+          <li class="row">
+            <h3 translate="no">Bookworm</h3>
+            <p class="row-desc">Moteur NLP&nbsp;: livres vers fiches pour éditeurs.</p>
+            <p class="stack" translate="no">Python</p>
+          </li>
+        </ul>
+        <p class="note">Les repos Epitech sont privés&nbsp;: détails en entretien.</p>
+      </div>
+    </section>
+
+    <section class="sec" data-node>
+      <h2 class="sec-title"><span class="cmd" aria-hidden="true">&gt; ls ./perso</span><span class="label">Perso et stages</span></h2>
+      <div>
+        <div class="rows-head" aria-hidden="true"><span>projet</span><span>description</span><span>code</span></div>
+        <ul class="rows">
+          <li class="row">
+            <h3 translate="no">Instagram Followback Checker</h3>
+            <p class="row-desc">Extension navigateur 100&nbsp;% locale, privacy by design, licence MIT.</p>
+            <p class="row-side"><a href="https://github.com/Rayane2L/instagram-followback-checker" rel="noopener noreferrer" translate="no">Rayane2L/instagram-followback-checker</a></p>
+          </li>
+          <li class="row">
+            <h3>Séances Team Nitro</h3>
+            <p class="row-desc">Apps Script&nbsp;: séances d’athlé personnalisées envoyées sur WhatsApp.</p>
+            <p class="row-side">privé</p>
+          </li>
+          <li class="row">
+            <h3>Tracker Air France</h3>
+            <p class="row-desc">Suivi en temps réel des avions Air France.</p>
+            <p class="row-side">stage 2026</p>
+          </li>
+          <li class="row">
+            <h3>Chatbot IA</h3>
+            <p class="row-desc">Chatbot personnalisé basé sur l’API OpenAI.</p>
+            <p class="row-side">stage Air France 2023</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
 </main>
 
 <footer class="site-foot">
   <div class="wave" aria-hidden="true"></div>
-  <div class="wrap foot-in">
-    <p>Rayane LALI · Epitech Nice</p>
+  <div class="foot-in">
+    <p>Rayane LALI, Epitech Nice</p>
     <ul>
       <li><a href="https://github.com/Rayane2L" rel="noopener noreferrer">GitHub</a></li>
       <li><a href="https://www.linkedin.com/in/rayane-lali" rel="noopener noreferrer">LinkedIn</a></li>
@@ -176,6 +182,6 @@
   </div>
 </footer>
 
-<script src="js/main.js" defer></script>
+<script src="js/snake.js" defer></script>
 </body>
 </html>
