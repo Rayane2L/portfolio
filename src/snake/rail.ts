@@ -1,6 +1,5 @@
-// Rail de gauche : piste ondulée, repères de sections, et position de la tête du serpent
-// au fil du scroll. Dessine un serpent vectoriel (secours et pendant le chargement 3D)
-// et publie son état à chaque image pour le rendu 3D.
+// Rail de gauche : piste ondulée et repères de sections qui s'allument au fil de la lecture.
+// Dessine aussi un serpent vectoriel, utilisé seulement si le serpent 3D ne peut pas s'afficher.
 
 const NS = 'http://www.w3.org/2000/svg';
 
@@ -46,7 +45,12 @@ function make<K extends keyof SVGElementTagNameMap>(name: K, attrs: Record<strin
   return node;
 }
 
-export function createRail(rail: HTMLElement): Rail {
+export interface RailOptions {
+  /** affiche le serpent vectoriel dès le départ (sinon seulement via setVectorVisible) */
+  vector?: boolean;
+}
+
+export function createRail(rail: HTMLElement, options: RailOptions = {}): Rail {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const svg = make('svg', { 'aria-hidden': 'true', focusable: 'false', class: 'absolute inset-0 h-full w-full overflow-visible pointer-events-none' }, rail);
@@ -68,7 +72,8 @@ export function createRail(rail: HTMLElement): Rail {
   const view = { railTop: 0, height: 0, maxScroll: 0 };
   const targets = Array.from(document.querySelectorAll<HTMLElement>('[data-node]'));
   let nodes: { y: number; el: SVGRectElement; on: boolean }[] = [];
-  let vectorVisible = true;
+  let vectorVisible = options.vector ?? true;
+  snake.style.opacity = vectorVisible ? '1' : '0';
   const listeners = new Set<() => void>();
 
   const xAt = (y: number) => geo.cx + geo.amp * Math.sin((y / geo.lambda) * 2 * Math.PI);

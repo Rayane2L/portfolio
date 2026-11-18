@@ -1,11 +1,19 @@
 import { useEffect, useRef } from 'react';
 import { createRail } from '../snake/rail';
 
+function webgl2Available(): boolean {
+  try {
+    return !!document.createElement('canvas').getContext('webgl2');
+  } catch {
+    return false;
+  }
+}
+
 /**
- * Conteneur du rail de gauche. Le rendu est entièrement impératif (SVG + WebGL) :
- * le composant ne fait que monter et démonter le moteur.
- * - partout : piste, repères de sections et serpent vectoriel ;
- * - écrans larges avec WebGL 2 : le serpent 3D (Blender) remplace le vectoriel une fois chargé.
+ * Rail de gauche (piste et repères de sections) et serpent.
+ * - avec WebGL 2 : le serpent 3D se promène sur toute la page, derrière le contenu ;
+ *   le serpent vectoriel n'est jamais affiché, pour éviter qu'il apparaisse avant le 3D ;
+ * - sans WebGL 2, ou si le modèle ne charge pas : serpent vectoriel dans le rail.
  */
 export function Rail() {
   const ref = useRef<HTMLDivElement>(null);
@@ -13,38 +21,27 @@ export function Rail() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const rail = createRail(el);
+    const use3D = webgl2Available();
+    const rail = createRail(el, { vector: !use3D });
     let disposed = false;
     let destroy3D: (() => void) | undefined;
-    const wide = window.matchMedia('(min-width: 56rem)');
 
     async function start3D() {
-      if (destroy3D || !wide.matches) return;
-      const { createSnake3D, webglAvailable } = await import('../snake/snake3d');
-      if (disposed || !webglAvailable()) return;
       try {
-        const snake = await createSnake3D(rail, document.body, () => rail.setVectorVisible(false));
+        const { createSnake3D } = await import('../snake/snake3d');
+        if (disposed) return;
+        const snake = await createSnake3D(document.body);
         if (disposed) snake.destroy();
         else destroy3D = snake.destroy;
       } catch (err) {
-        // modèle indisponible : le serpent vectoriel reste affiché
         console.warn('Serpent 3D indisponible', err);
+        if (!disposed) rail.setVectorVisible(true);
       }
     }
-    function onWidth() {
-      if (wide.matches) void start3D();
-      else if (destroy3D) {
-        destroy3D();
-        destroy3D = undefined;
-        rail.setVectorVisible(true);
-      }
-    }
+    if (use3D) void start3D();
 
-    wide.addEventListener('change', onWidth);
-    void start3D();
     return () => {
       disposed = true;
-      wide.removeEventListener('change', onWidth);
       destroy3D?.();
       rail.destroy();
     };

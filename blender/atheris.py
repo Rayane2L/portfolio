@@ -75,13 +75,13 @@ C_TONGUE = hex_rgb("#58a6ff")
 # ---------------------------------------------------------------- silhouette
 # demi-largeur (Y) le long du corps ; u = x / L
 WIDTH = [
-    (0.000, 0.0025), (0.06, 0.008), (0.18, 0.021), (0.42, 0.034), (0.66, 0.038),
-    (0.84, 0.030), (0.905, 0.019), (0.925, 0.0175),  # cou étroit
-    (0.952, 0.036),  # arrière de la tête, très large
-    (0.978, 0.029), (0.993, 0.019), (1.000, 0.006),
+    (0.000, 0.0018), (0.06, 0.0055), (0.18, 0.0145), (0.42, 0.0235), (0.66, 0.0265),
+    (0.84, 0.0215), (0.905, 0.0150), (0.922, 0.0140),  # cou étroit
+    (0.950, 0.0420),  # arrière de la tête, très large : tête nettement distincte du cou
+    (0.972, 0.0310), (0.990, 0.0175), (1.000, 0.0060),
 ]
-# rapport hauteur / largeur : corps presque rond, tête aplatie
-HEIGHT_RATIO = [(0.0, 0.95), (0.88, 0.92), (0.925, 0.8), (0.952, 0.5), (1.0, 0.42)]
+# rapport hauteur / largeur : corps presque rond, tête large mais pas écrasée
+HEIGHT_RATIO = [(0.0, 0.95), (0.88, 0.95), (0.922, 0.92), (0.950, 0.66), (1.0, 0.56)]
 
 
 def half_width(x):

@@ -20,8 +20,8 @@ function Home() {
   return (
     <>
       <section aria-label="Présentation rapide" className="pt-2 sm:pt-5">
-        <div className="overflow-hidden rounded-[0.6rem] border border-rule-strong bg-bg/90 shadow-[0_0_3rem_rgb(47_129_247/0.1)]">
-          <div aria-hidden="true" className="relative flex items-center gap-2 border-b border-rule bg-panel/90 px-3.5 py-3">
+        <div className="overflow-hidden rounded-[0.6rem] border border-rule-strong bg-bg/55 backdrop-blur-[1px] shadow-[0_0_3rem_rgb(47_129_247/0.1)]">
+          <div aria-hidden="true" className="relative flex items-center gap-2 border-b border-rule bg-panel/75 px-3.5 py-3">
             <span className="size-3 rounded-full bg-[#ff5f56]" />
             <span className="size-3 rounded-full bg-[#ffbd2e]" />
             <span className="size-3 rounded-full bg-[#27c93f]" />

@@ -51,12 +51,12 @@ export function Layout({ page, children }: LayoutProps) {
         </nav>
       </header>
 
-      <main id="contenu" className="grid flex-1 grid-cols-[var(--rail)_minmax(0,1fr)]">
+      <main id="contenu" className="relative z-10 grid flex-1 grid-cols-[var(--rail)_minmax(0,1fr)]">
         <Rail />
         <div className="pb-4 pr-[max(var(--pad),env(safe-area-inset-right))]">{children}</div>
       </main>
 
-      <footer className="pt-12">
+      <footer className="relative z-10 pt-12">
         <div className="wave h-18 sm:h-28" aria-hidden="true" />
         <div className="flex flex-wrap items-center justify-between gap-x-6 pb-[max(1rem,env(safe-area-inset-bottom))] pl-(--rail) pr-(--pad) pt-2 font-mono text-[0.8125rem] text-dim">
           <p>Rayane LALI, Epitech Nice</p>
