@@ -1,0 +1,5 @@
+node_modules/
+dist/
+dist-ssr/
+blender/previews/
+blender/*.blend1

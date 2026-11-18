@@ -3,66 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Contact | Rayane LALI</title>
 <meta name="description" content="Contacter Rayane LALI : GitHub, LinkedIn, e-mail. Recherche : stage et alternance en cybersécurité, autour de Nice (ou remote).">
 <meta name="theme-color" content="#0d1117">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/jetbrains-mono-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="./assets/fonts/jetbrains-mono-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script type="module" src="/src/entry-client.tsx"></script>
 </head>
 <body>
-<a class="skip" href="#contenu">Aller au contenu</a>
-
-<header class="site-head">
-  <a class="brand" href="index.html" translate="no"><span class="brand-mark"><img src="assets/favicon.svg" width="28" height="28" alt=""></span><span>rayane<span class="at">@</span>epitech-nice</span></a>
-  <nav class="nav" aria-label="Navigation principale">
-    <ul>
-      <li><a href="index.html">accueil</a></li>
-      <li><a href="projets.html">projets</a></li>
-      <li><a href="parcours.html">parcours</a></li>
-      <li><a href="contact.html" aria-current="page">contact</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main class="layout" id="contenu">
-  <div class="rail" id="rail" aria-hidden="true"></div>
-
-  <div class="content">
-    <h1 class="page-title" data-node="mid"><span class="ps1" aria-hidden="true">$ </span><span aria-hidden="true">cat </span>contact<span class="cursor" aria-hidden="true"></span></h1>
-
-    <section class="sec" data-node>
-      <h2 class="sec-title"><span class="cmd" aria-hidden="true">&gt; ./recherche</span><span class="label">Recherche</span></h2>
-      <div>
-        <p class="search-line" translate="no"><span class="ps1" aria-hidden="true">$</span> ./recherche --stage --alternance --zone="autour de Nice"</p>
-        <p>Stage et alternance en cybersécurité, autour de Nice (ou remote).</p>
-      </div>
-    </section>
-
-    <section class="sec" data-node>
-      <h2 class="sec-title"><span class="cmd" aria-hidden="true">&gt; cat contact</span><span class="label">Me contacter</span></h2>
-      <dl class="facts facts-big">
-        <div><dt>github</dt><dd><a href="https://github.com/Rayane2L" rel="noopener noreferrer" translate="no">github.com/Rayane2L</a></dd></div>
-        <div><dt>linkedin</dt><dd><a href="https://www.linkedin.com/in/rayane-lali" rel="noopener noreferrer" translate="no">linkedin.com/in/rayane-lali</a></dd></div>
-        <div><dt>e-mail</dt><dd><a href="mailto:rayail06@gmail.com" translate="no">rayail06@gmail.com</a></dd></div>
-      </dl>
-    </section>
-  </div>
-</main>
-
-<footer class="site-foot">
-  <div class="wave" aria-hidden="true"></div>
-  <div class="foot-in">
-    <p>Rayane LALI, Epitech Nice</p>
-    <ul>
-      <li><a href="https://github.com/Rayane2L" rel="noopener noreferrer">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/rayane-lali" rel="noopener noreferrer">LinkedIn</a></li>
-    </ul>
-  </div>
-</footer>
-
-<script src="js/snake.js" defer></script>
+<div id="root" data-page="contact"><!--app-html--></div>
 </body>
 </html>

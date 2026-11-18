@@ -1,50 +1,72 @@
 # Portfolio de Rayane LALI
 
-Site statique (HTML, CSS, JavaScript, sans dépendance ni étape de build) : étudiant en cybersécurité à Epitech Nice.
+Site de [Rayane LALI](https://rayane2l.github.io/portfolio/), étudiant en cybersécurité à Epitech Nice.
 
-Esthétique terminal en bleu, mise en page pleine largeur. Un serpent descend le long du rail de gauche au fil de la lecture et allume le repère de chaque section atteinte.
+Esthétique terminal en bleu, mise en page pleine largeur. Un serpent 3D inspiré de l'Atheris hispida (vipère arboricole hérissée), modélisé dans Blender, descend le long du rail de gauche au fil de la lecture, tourne la tête vers chaque section atteinte, respire et sort la langue de temps en temps.
+
+## Stack
+
+- React 19 + TypeScript, Tailwind CSS 4, construit avec Vite
+- Pages pré-rendues à la construction : le contenu se lit sans JavaScript et reste indexable
+- three.js pour le serpent 3D, chargé à la demande sur grand écran uniquement
+- Blender 5.3 (script Python) pour le modèle, compressé avec glTF-Transform (meshopt, 147 Ko)
 
 ## Pages
 
 | Fichier | Contenu |
 |---|---|
-| `index.html` | Accueil : fenêtre de terminal (`whoami`, `cat focus.txt`, `./recherche`), présentation, arborescence du site |
+| `index.html` | Accueil : fenêtre de terminal, présentation, arborescence du site |
 | `projets.html` | Projets : cybersécurité d'abord, puis dev (Epitech), perso et stages |
 | `parcours.html` | Formation, expériences, compétences, langues |
 | `contact.html` | GitHub, LinkedIn, e-mail |
 
-## Lancer en local
-
-Les pages utilisent des chemins relatifs : n'importe quel serveur statique suffit.
+## Commandes
 
 ```bash
-python -m http.server 4173
+npm install
 ```
 
-Puis ouvrir `http://localhost:4173`.
+```bash
+npm run dev
+```
+
+```bash
+npm run build
+```
+
+```bash
+npm run preview
+```
+
+`npm run model` reconstruit le serpent : Blender génère le modèle et trois aperçus dans `blender/previews/`, puis le fichier est compressé dans `public/models/atheris.glb`. Le chemin de Blender se change avec la variable `BLENDER`.
 
 ## Structure
 
 ```
-assets/        réseau de noeuds, vague, favicon (SVG) et polices
-css/style.css  charte : fond #0d1117, bleus #58a6ff / #2f81f7 / #a5d6ff
-js/snake.js    serpent du rail, dessiné en SVG et piloté par le scroll
-tools/         script qui régénère les SVG décoratifs
+blender/atheris.py      modèle 3D de l'Atheris (script Blender) ; atheris.blend à ouvrir dans Blender
+public/                 polices, SVG décoratifs, modèle 3D
+scripts/                compression du modèle, pré-rendu des pages, génération des SVG
+src/data/content.ts     tout le texte du site
+src/pages.tsx           les quatre pages
+src/components/         mise en page, rail, blocs réutilisables
+src/snake/rail.ts       piste, repères de sections, suivi du scroll, serpent vectoriel de secours
+src/snake/snake3d.ts    serpent 3D : courbé en temps réel par un shader le long du rail
 ```
 
-Régénérer les SVG après modification du script :
+## Comportement du serpent
 
-```bash
-node tools/generer-assets.js assets
-```
+- **Grand écran avec WebGL 2** : serpent 3D. Le vectoriel s'affiche pendant le chargement.
+- **Mobile ou sans WebGL** : serpent vectoriel, sans télécharger three.js.
+- **`prefers-reduced-motion`** : le serpent reste immobile, sans respiration ni langue.
 
-## Choix techniques
+## Déploiement
 
+Chaque push sur `main` lance `.github/workflows/deploy.yml` : vérification des types, construction, publication sur GitHub Pages.
+
+## Sécurité
+
+- Content-Security-Policy stricte en production : `default-src 'none'`, tout en `'self'`. Seule exception, `'wasm-unsafe-eval'`, nécessaire au décodeur WebAssembly du modèle 3D.
 - Aucune requête tierce : polices hébergées avec le site, pas de CDN ni de traceur.
-- Content-Security-Policy stricte (`default-src 'none'`, scripts et styles limités à `'self'`, aucun style ou script en ligne).
-- Le contenu est du HTML statique : le site se lit sans JavaScript, seul le serpent en dépend.
-- `prefers-reduced-motion` : le serpent reste immobile et le curseur ne clignote plus.
-- Navigation au clavier : lien d'évitement, focus visible, cibles tactiles de 44 px.
 
 ## Polices
 

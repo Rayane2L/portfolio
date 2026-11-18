@@ -3,140 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Rayane LALI | étudiant en cybersécurité @ Epitech Nice</title>
 <meta name="description" content="Étudiant en cybersécurité en 2e année de Bachelor à Epitech Nice. Recherche : stage et alternance en cybersécurité, autour de Nice (ou remote).">
 <meta name="theme-color" content="#0d1117">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/jetbrains-mono-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="./assets/fonts/jetbrains-mono-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script type="module" src="/src/entry-client.tsx"></script>
 </head>
 <body>
-<a class="skip" href="#contenu">Aller au contenu</a>
-
-<header class="site-head">
-  <a class="brand" href="index.html" translate="no"><span class="brand-mark"><img src="assets/favicon.svg" width="28" height="28" alt=""></span><span>rayane<span class="at">@</span>epitech-nice</span></a>
-  <nav class="nav" aria-label="Navigation principale">
-    <ul>
-      <li><a href="index.html" aria-current="page">accueil</a></li>
-      <li><a href="projets.html">projets</a></li>
-      <li><a href="parcours.html">parcours</a></li>
-      <li><a href="contact.html">contact</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main class="layout" id="contenu">
-  <div class="rail" id="rail" aria-hidden="true"></div>
-
-  <div class="content">
-    <section class="hero" aria-label="Présentation rapide">
-      <div class="term">
-        <div class="term-bar" aria-hidden="true">
-          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-          <span class="term-title">rayane@epitech-nice: ~</span>
-        </div>
-        <div class="term-body">
-          <p class="ln" translate="no"><span class="ps1" aria-hidden="true">$</span> whoami</p>
-          <h1 class="who" data-node="mid"><span class="who-name" translate="no">Rayane LALI</span> <span class="who-role">étudiant en cybersécurité @ Epitech Nice</span></h1>
-          <p class="ln" translate="no"><span class="ps1" aria-hidden="true">$</span> cat focus.txt</p>
-          <p class="focus">pentest · CTF · détection &amp; réponse · sécurité réseau</p>
-          <p class="ln" translate="no"><span class="ps1" aria-hidden="true">$</span> ./recherche --stage --alternance --zone="autour de Nice"</p>
-          <p class="answer">Stage et alternance en cybersécurité, autour de Nice (ou remote)<span class="cursor" aria-hidden="true"></span></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec" data-node>
-      <h2 class="sec-title"><span class="cmd" aria-hidden="true">&gt; about_me</span><span class="label">Présentation</span></h2>
-      <p class="lead">Étudiant en cybersécurité en 2e année de Bachelor à Epitech Nice. Ce qui me motive&nbsp;: comprendre comment les systèmes fonctionnent pour savoir comment les attaquer, et donc comment les protéger. Je m’entraîne sur HackTheBox et lors des CTF d’Epitech, et je documente ma méthodologie et mes write-ups sur GitHub.</p>
-    </section>
-
-    <section class="sec" data-node>
-      <h2 class="sec-title"><span class="cmd" aria-hidden="true">&gt; tree ~</span><span class="label">Contenu du site</span></h2>
-      <div class="tree">
-        <div>
-          <a class="tree-root" href="projets.html">projets/</a>
-          <ul>
-            <li><span class="tree-dir">cyber/</span>
-              <ul>
-                <li>SentinelX</li>
-                <li>CTF Exegol</li>
-                <li>OWASP Juice Shop</li>
-                <li>Codename</li>
-                <li>HackTheBox</li>
-              </ul>
-            </li>
-            <li><span class="tree-dir">epitech/</span>
-              <ul>
-                <li>Jobryx</li>
-                <li>Persona</li>
-                <li>TARDIS</li>
-                <li>Mog Games</li>
-                <li>eTodo</li>
-                <li>ELIZA</li>
-                <li>Bookworm</li>
-              </ul>
-            </li>
-            <li><span class="tree-dir">perso/</span>
-              <ul>
-                <li>Instagram Followback Checker</li>
-                <li>Séances Team Nitro</li>
-                <li>Tracker Air France</li>
-                <li>Chatbot IA</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <a class="tree-root" href="parcours.html">parcours/</a>
-          <ul>
-            <li><span class="tree-dir">formation</span>
-              <ul>
-                <li>Epitech Nice, Bachelor (2e année), 2025 – 2028</li>
-              </ul>
-            </li>
-            <li><span class="tree-dir">expériences</span>
-              <ul>
-                <li>Stagiaire, Air France, juin 2026</li>
-                <li>Réceptionniste de nuit, IBIS hotel, février – août 2025</li>
-                <li>Stagiaire, Air France, juin 2023</li>
-              </ul>
-            </li>
-            <li><span class="tree-dir">langues</span>
-              <ul>
-                <li>Français (natif)</li>
-                <li>Anglais (C1)</li>
-                <li>Espagnol (B2)</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <a class="tree-root" href="contact.html">contact/</a>
-          <ul>
-            <li><a href="https://github.com/Rayane2L" rel="noopener noreferrer" translate="no">github.com/Rayane2L</a></li>
-            <li><a href="https://www.linkedin.com/in/rayane-lali" rel="noopener noreferrer" translate="no">linkedin.com/in/rayane-lali</a></li>
-            <li><a href="mailto:rayail06@gmail.com" translate="no">rayail06@gmail.com</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </div>
-</main>
-
-<footer class="site-foot">
-  <div class="wave" aria-hidden="true"></div>
-  <div class="foot-in">
-    <p>Rayane LALI, Epitech Nice</p>
-    <ul>
-      <li><a href="https://github.com/Rayane2L" rel="noopener noreferrer">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/rayane-lali" rel="noopener noreferrer">LinkedIn</a></li>
-    </ul>
-  </div>
-</footer>
-
-<script src="js/snake.js" defer></script>
+<div id="root" data-page="index"><!--app-html--></div>
 </body>
 </html>

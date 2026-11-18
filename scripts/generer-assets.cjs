@@ -1,9 +1,9 @@
 // Génère les SVG décoratifs du portfolio : réseau de noeuds, vague, favicon.
-// Usage : node tools/generer-assets.js assets
+// Usage : node scripts/generer-assets.cjs public/assets
 // (Le serpent, lui, est dessiné en direct par js/snake.js.)
 const fs = require('fs');
 const path = require('path');
-const out = process.argv[2] || 'assets';
+const out = process.argv[2] || 'public/assets';
 const r1 = (n) => Math.round(n * 10) / 10;
 
 const BLUE = '#58a6ff';
