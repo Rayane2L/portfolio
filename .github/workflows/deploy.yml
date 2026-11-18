@@ -23,7 +23,9 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      # npm install plutôt que npm ci : le fichier de verrouillage est généré sous Windows
+      # et ne liste pas certaines dépendances optionnelles propres à Linux
+      - run: npm install --no-audit --no-fund
       - run: npm run typecheck
       # le modèle 3D (public/models/atheris.glb) est versionné : Blender n'est pas nécessaire ici
       - run: npm run build
