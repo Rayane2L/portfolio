@@ -15,6 +15,7 @@ import {
   Mesh,
   MeshStandardMaterial,
   NearestFilter,
+  Object3D,
   PerspectiveCamera,
   RGBAFormat,
   Scene,
@@ -26,8 +27,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 
 const SAMPLES = 256;
-const EXTEND = 1.08; // la courbe dépasse du museau pour la langue
-const TONGUE_OUT = 0.05; // sortie de la langue, en longueur de corps
+const EXTEND = 1.12; // la courbe dépasse du museau pour la langue
+const TONGUE_OUT = 0.075; // sortie de la langue, en longueur de corps
 const FOV = 30;
 const THICK = 1.3; // épaisseur du corps par rapport au modèle
 const STEP = 3; // espacement des points de la trace (px)
@@ -76,10 +77,14 @@ interface Uniforms {
   uLen: { value: number };
   uBreath: { value: number };
   uTongue: { value: number };
+  uFlutter: { value: number };
 }
 
 function makeMaterial(uniforms: Uniforms, isTongue: boolean): MeshStandardMaterial {
   const mat = new MeshStandardMaterial({ vertexColors: true, roughness: isTongue ? 0.35 : 0.42, metalness: 0.18, side: DoubleSide });
+  // three.js met en cache les shaders d'après le texte de onBeforeCompile, identique pour le corps
+  // et la langue : sans clé distincte, la langue réutiliserait le shader du corps
+  mat.customProgramCacheKey = () => (isTongue ? 'atheris-tongue' : 'atheris-body');
   mat.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, uniforms);
     shader.vertexShader = shader.vertexShader
@@ -90,6 +95,7 @@ uniform sampler2D uPath;
 uniform float uLen;
 uniform float uBreath;
 uniform float uTongue;
+uniform float uFlutter;
 vec3 pathAt(int row, float s) {
   float f = clamp(s / (uLen * ${EXTEND.toFixed(2)}), 0.0, 1.0) * ${(SAMPLES - 1).toFixed(1)};
   int i = int(floor(f));
@@ -109,7 +115,17 @@ vec3 pB = cross(pT, pN);
 float breath = 1.0 + uBreath * smoothstep(0.15, 0.5, bodyX) * (1.0 - smoothstep(0.75, 0.9, bodyX));
 vec3 objectNormal = normalize(pT * normal.x + pB * normal.y - pN * normal.z);`,
       )
-      .replace('#include <begin_vertex>', `vec3 transformed = pP + (pB * position.y - pN * position.z) * uLen * ${THICK.toFixed(2)} * breath;`);
+      .replace(
+        '#include <begin_vertex>',
+        `vec3 transformed = pP + (pB * position.y - pN * position.z) * uLen * ${THICK.toFixed(2)} * breath;${
+          isTongue
+            ? `
+// sifflement : la langue fouette de gauche à droite, d'autant plus vers les pointes
+float whip = max(0.0, bodyX - 0.99);
+transformed += pN * uFlutter * whip * whip * uLen * 6.0;`
+            : ''
+        }`,
+      );
     shader.fragmentShader = shader.fragmentShader.replace(
       '#include <emissivemap_fragment>',
       `#include <emissivemap_fragment>
@@ -282,15 +298,18 @@ export async function createSnake3D(host: HTMLElement): Promise<Snake3D> {
   const pathTex = new DataTexture(pathData, SAMPLES, 3, RGBAFormat, FloatType);
   pathTex.minFilter = pathTex.magFilter = NearestFilter;
   pathTex.needsUpdate = true;
-  const uniforms: Uniforms = { uPath: { value: pathTex }, uLen: { value: 400 }, uBreath: { value: 0 }, uTongue: { value: 0 } };
+  const uniforms: Uniforms = { uPath: { value: pathTex }, uLen: { value: 400 }, uBreath: { value: 0 }, uTongue: { value: 0 }, uFlutter: { value: 0 } };
 
   const meshes: Mesh[] = [];
   gltf.scene.traverse((obj) => {
     if ((obj as Mesh).isMesh) meshes.push(obj as Mesh);
   });
   for (const src of meshes) {
-    const isTongue = src.name.toLowerCase().includes('tongue');
+    // après compression, le nom « Tongue » peut être porté par un nœud parent
+    let isTongue = false;
+    for (let o: Object3D | null = src; o; o = o.parent) if (/tongue/i.test(o.name)) isTongue = true;
     const mesh = new Mesh(bakeGeometry(src), makeMaterial(uniforms, isTongue));
+    mesh.name = isTongue ? 'Tongue' : 'Atheris';
     mesh.frustumCulled = false;
     scene.add(mesh);
   }
@@ -424,6 +443,7 @@ export async function createSnake3D(host: HTMLElement): Promise<Snake3D> {
   let raf = 0;
   let last = performance.now();
   let tongueT = -1;
+  let flicks = 2;
   let nextFlick = performance.now() + 1200;
   let shown = false;
 
@@ -434,17 +454,23 @@ export async function createSnake3D(host: HTMLElement): Promise<Snake3D> {
     if (!reduceMotion) {
       snake.update(dt);
       uniforms.uBreath.value = 0.035 * Math.sin((now / 1000) * 1.5);
-      // langue plus fréquente à l'arrêt, comme un serpent qui « goûte » l'air
-      if (tongueT < 0 && now > nextFlick) tongueT = 0;
+      // sifflement : 2 à 3 coups de langue rapides, la fourche vibrant de gauche à droite ;
+      // plus fréquent à l'arrêt, comme un serpent qui « goûte » l'air
+      if (tongueT < 0 && now > nextFlick) {
+        tongueT = 0;
+        flicks = Math.random() < 0.5 ? 2 : 3;
+      }
       if (tongueT >= 0) {
-        tongueT += dt / 0.7;
-        const out = Math.sin(Math.min(1, tongueT) * Math.PI);
-        const flutter = 0.82 + 0.18 * Math.sin(tongueT * Math.PI * 8);
-        uniforms.uTongue.value = TONGUE_OUT * out * flutter;
+        tongueT += dt / (0.26 * flicks);
+        const k = Math.min(1, tongueT) * flicks;
+        const out = Math.pow(Math.sin(Math.PI * (k % 1)), 0.6);
+        uniforms.uTongue.value = TONGUE_OUT * out;
+        uniforms.uFlutter.value = Math.sin(now / 1000 * Math.PI * 2 * 14) * out;
         if (tongueT >= 1) {
           tongueT = -1;
           uniforms.uTongue.value = 0;
-          nextFlick = now + (snake.pause > 0 ? rand(900, 2200) : rand(2500, 6000));
+          uniforms.uFlutter.value = 0;
+          nextFlick = now + (snake.pause > 0 ? rand(700, 1800) : rand(2200, 5000));
         }
       }
     }

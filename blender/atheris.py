@@ -71,6 +71,7 @@ C_EYE = hex_rgb("#8fd0ff")
 C_EYE_RIM = hex_rgb("#0a2556")
 C_PUPIL = hex_rgb("#030a17")
 C_TONGUE = hex_rgb("#58a6ff")
+C_TONGUE_TIP = hex_rgb("#d6ecff")
 
 # ---------------------------------------------------------------- silhouette
 # demi-largeur (Y) le long du corps ; u = x / L
@@ -334,31 +335,51 @@ def build_eyes(b):
 
 
 # ---------------------------------------------------------------- langue
+def tube(b, centers, radii, colors, segs=8, flat=0.7):
+    """Tube effilé le long d'une suite de centres (section légèrement aplatie)."""
+    rings = []
+    for i, (c, r, col) in enumerate(zip(centers, radii, colors)):
+        a = centers[min(i + 1, len(centers) - 1)] - centers[max(i - 1, 0)]
+        t = a.normalized()
+        side = Vector((0, 0, 1)).cross(t).normalized()
+        up = t.cross(side).normalized()
+        ring = []
+        for j in range(segs):
+            ang = 2 * math.pi * j / segs
+            ring.append(b.vert(c + side * math.cos(ang) * r + up * math.sin(ang) * r * flat, col))
+        rings.append(ring)
+    for i in range(len(rings) - 1):
+        for j in range(segs):
+            k = (j + 1) % segs
+            b.face([rings[i][j], rings[i][k], rings[i + 1][k], rings[i + 1][j]])
+    # bouts fermés
+    for ring, c in ((rings[0], centers[0]), (rings[-1], centers[-1])):
+        cap = b.vert(c, colors[0])
+        for j in range(segs):
+            b.face([ring[j], ring[(j + 1) % segs], cap])
+
+
 def build_tongue():
+    """Langue fourchue, rentrée dans la gueule au repos ; le site la fait jaillir et vibrer."""
     b = Builder()
-    th = 0.0016
-    x0, x1 = 0.93, 0.968  # rentrée dans la tête au repos
-    z = center_z(0.99) - half_height(0.99) * 0.35
-    w = 0.0017
-    a = [b.vert(Vector((x0, -w, z - th)), C_TONGUE), b.vert(Vector((x0, w, z - th)), C_TONGUE),
-         b.vert(Vector((x1, w, z - th)), C_TONGUE), b.vert(Vector((x1, -w, z - th)), C_TONGUE)]
-    c = [b.vert(Vector((x0, -w, z + th)), C_TONGUE), b.vert(Vector((x0, w, z + th)), C_TONGUE),
-         b.vert(Vector((x1, w, z + th)), C_TONGUE), b.vert(Vector((x1, -w, z + th)), C_TONGUE)]
-    for f in ((a[0], a[3], a[2], a[1]), (c[0], c[1], c[2], c[3]), (a[0], a[1], c[1], c[0]),
-              (a[1], a[2], c[2], c[1]), (a[3], a[0], c[0], c[3])):
-        b.face(list(f))
-    # fourche
+    z = center_z(0.985) - half_height(0.985) * 0.3
+    split, tip = 0.966, 0.995  # position au repos : la pointe reste sous le museau
+    # tige
+    n = 10
+    xs = [0.90 + (split - 0.90) * i / (n - 1) for i in range(n)]
+    tube(b, [Vector((x, 0, z)) for x in xs], [0.0026 - 0.0006 * i / (n - 1) for i in range(n)],
+         [mix(C_TONGUE, C_TONGUE_TIP, 0.3 * i / (n - 1)) for i in range(n)])
+    # deux pointes qui s'écartent en s'incurvant
     for side in (-1, 1):
-        base = [a[2], c[2]] if side > 0 else [a[3], c[3]]
-        tip_lo = b.vert(Vector((x1 + 0.017, side * 0.0075, z - th * 0.5)), C_TONGUE)
-        tip_hi = b.vert(Vector((x1 + 0.017, side * 0.0075, z + th * 0.5)), C_TONGUE)
-        inner_lo = b.vert(Vector((x1, 0.0, z - th)), C_TONGUE)
-        inner_hi = b.vert(Vector((x1, 0.0, z + th)), C_TONGUE)
-        b.face([base[0], inner_lo, tip_lo])
-        b.face([base[1], tip_hi, inner_hi])
-        b.face([base[0], tip_lo, tip_hi, base[1]])
-        b.face([inner_lo, inner_hi, tip_hi, tip_lo])
-    return b.build("Tongue", make_material("TongueMat", 0.35, 0.6))
+        m = 8
+        pts, rad, col = [], [], []
+        for i in range(m):
+            t = i / (m - 1)
+            pts.append(Vector((split + (tip - split) * t, side * 0.0072 * t ** 1.4, z + 0.0006 * t)))
+            rad.append(0.0019 * (1 - t) + 0.00035)
+            col.append(mix(C_TONGUE, C_TONGUE_TIP, 0.3 + 0.7 * t))
+        tube(b, pts, rad, col, segs=6)
+    return b.build("Tongue", make_material("TongueMat", 0.3, 0.8))
 
 
 # ---------------------------------------------------------------- construction
@@ -462,6 +483,8 @@ ev = body.evaluated_get(deps)
 head_pts = [ev.matrix_world @ ev.data.vertices[i].co for i, v in enumerate(body.data.vertices) if v.co.x > 0.93]
 hc = sum(head_pts, Vector()) / len(head_pts)
 print("HEAD", tuple(round(c, 3) for c in hc))
+for v in tongue.data.vertices:
+    v.co.x += 0.075  # langue sortie, comme pendant un sifflement
 render("tete-3-4.png", (hc.x + 0.11, hc.y - 0.13, hc.z + 0.09), tuple(hc), 50, (1000, 700))
 render("profil.png", (0.55, -1.25, 0.18), (0.55, 0, 0.02), 50, (1400, 600))
 print("DONE")
